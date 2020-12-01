@@ -5,7 +5,7 @@ import pymongo
 
 
 
-myclient = pymongo.MongoClient('mongodb://db_server:27017/')
+myclient = pymongo.MongoClient('mongodb://mongo_server:27017/')
 
 class Dao(object):
 
