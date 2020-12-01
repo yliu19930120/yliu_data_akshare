@@ -1,6 +1,5 @@
 
 from flask import Flask
-from flask import request
 import _thread
 
 import fund_op
