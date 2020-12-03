@@ -1,11 +1,12 @@
 # coding=utf-8
 from datetime import datetime
+import pytz
 
 import pymongo
 
 
 
-myclient = pymongo.MongoClient('mongodb://mongo_server:27017/')
+myclient = pymongo.MongoClient('mongodb://mongo_server:27017/',tz_aware=True, tzinfo=pytz.timezone('Asia/Shanghai'))
 
 class Dao(object):
 
@@ -32,6 +33,9 @@ class Dao(object):
     def find(self,filter,skip,limit):
         cursor = myclient[self.db_name][self.table_name].find(filter).skip(skip).limit(limit)
         return [t for t in cursor]
+
+    def findOne(self):
+        return myclient[self.db_name][self.table_name].find_one()
 
 if __name__ == '__main__':
     fund_em_fund_name_df = ak.fund_em_fund_name()

@@ -2,6 +2,7 @@ import akshare as ak
 from datetime import datetime
 from log_utils import log_utils
 from dao import Dao
+import pytz
 
 log = log_utils.get_logger("fund_op")
 
@@ -10,7 +11,7 @@ def get_fund() -> object:
     fund_em_fund_name_df = ak.fund_em_fund_name()
     dao = Dao("crawler", "fund")
     dao.delete_many({})
-    fund_em_fund_name_df["createTime"] = datetime.now()
+    fund_em_fund_name_df["createTime"] = pytz.timezone('Asia/Shanghai').localize(datetime.now())
     fund_em_fund_name_df.rename(
     columns={"基金简称": "name", "基金类型": "fundType", "拼音全称": "fullPinyin", "基金代码": "code", "拼音缩写": "pinyin"}, inplace=True)
     records = fund_em_fund_name_df.to_dict(orient='records')
