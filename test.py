@@ -1,9 +1,9 @@
-import fund_op
+import fund_task
 from dao import Dao
 
 if __name__ == '__main__':
 
-    fund_op.get_fund()
+    fund_task.get_fund()
 
     dao = Dao("crawler", "fund")
 

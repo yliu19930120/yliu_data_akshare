@@ -2,7 +2,7 @@
 from flask import Flask
 import _thread
 
-import fund_op
+from fund_task import FundTask
 from log_utils import log_utils
 
 OK = {"code":200,"msg":"OK"}
@@ -12,14 +12,8 @@ log = log_utils.get_logger("app")
 
 @app.route('/fund', methods=['GET'])
 def getfund():
-    try:
-        _thread.start_new_thread(fund_op.get_fund, ())
-        log.info("成功")
-    except Exception as e:
-        print(e)
-        return {"code":500,"msg":"失败 %s" % e}
-    else:
-        return OK
+    fund_task = FundTask()
+    _thread.start_new_thread(fund_task.get_fund, ())
 
 if __name__ == '__main__':
     app.run(port=10002)
