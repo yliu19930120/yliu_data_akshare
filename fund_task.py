@@ -20,14 +20,16 @@ class FundTask(Task):
             inplace=True)
         records = fund_em_fund_name_df.to_dict(orient='records')
         dao.insert_many(records)
+        msg = "基金信息获取完毕 共计 %s 条" % len(records)
+        log.info(msg)
+        return msg
 
-        log.info("基金信息获取完毕 共计 %s 条", len(records))
-
-
+    def _obj(self):
+        return 'fundTask'
 
 if __name__ == '__main__':
     task = FundTask("task_04")
 
-    task.run()
+    task.failed('异常')
 
 
