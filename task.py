@@ -16,7 +16,7 @@ class Task(object):
 
     def excute(self):
         return '成功'
-
+    #task的名称标记
     def _obj(self):
         return 'task'
 
