@@ -1,5 +1,5 @@
 from datetime import date
-from datetime import datetime
+import datetime
 from log_utils import log_utils
 from task import Task
 import akshare as ak
@@ -11,15 +11,15 @@ log = log_utils.get_logger("fundValueTask")
 class FundValueTask(Task):
 
     def excute(self):
-        dao = Dao("crawler", "fund")
+        dao = Dao("crawler", "fundValue")
         fund_em_open_fund_daily_df = ak.fund_em_open_fund_daily()
         fund_em_open_fund_daily_df["createTime"] = pytz.timezone('Asia/Shanghai').localize(datetime.datetime.now())
-        print(fund_em_open_fund_daily_df.columns.values)
+
 
         today = date.today()
-        lastday = today_key.replace(day=today_key.day-1)
+        lastday = today.replace(day=today.day-1)
         todayKey = date.today().strftime('%Y-%m-%d')
-        lastdayKey = today_key.replace(day=today_key.day-1).strftime('%Y-%m-%d')
+        lastdayKey = today.replace(day=today.day-1).strftime('%Y-%m-%d')
 
 
         fund_em_open_fund_daily_df.rename(
@@ -30,12 +30,19 @@ class FundValueTask(Task):
                      "手续费": "fee",
                      "日增长值": "growthValue",
                      "日增长率": "growthRate",
+                     "%s-累计净值" % todayKey: "cumulativeValue",
+                     "%s-单位净值" % todayKey: "value",
+                     "%s-累计净值" % lastdayKey: "cumulativeValuePrev",
+                     "%s-单位净值" % lastdayKey: "valuePrev"
                      },
             inplace=True)
 
+        fund_em_open_fund_daily_df["date"] = pytz.timezone('Asia/Shanghai').localize(datetime.datetime.strptime(todayKey,'%Y-%m-%d'))
+        fund_em_open_fund_daily_df["datePrev"] = pytz.timezone('Asia/Shanghai').localize(datetime.datetime.strptime(lastdayKey,'%Y-%m-%d'))
+
         records = fund_em_open_fund_daily_df.to_dict(orient='records')
 
-        # dao.insert_many(records)
+        dao.insert_many(records)
 
         msg = "基金净值信息获取完毕 共计 %s 条" % len(records)
         log.info(msg)
@@ -46,9 +53,6 @@ class FundValueTask(Task):
 
 
 if __name__ == '__main__':
-        # task = FundValueTask('task_004')
-        #
-        # task.excute()
-        today_key = date.today()
-        lastdayKey = today_key.replace(day=today_key.day-1).strftime('%Y-%m-%d')
-        print(today_key,lastdayKey)
+        task = FundValueTask('task_004')
+
+        task.excute()
