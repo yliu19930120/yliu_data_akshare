@@ -27,7 +27,6 @@ class Task(object):
             log.info("成功")
             self.succ(msg)
         except Exception as e:
-            print(e)
             log.info("失败 %s ",e)
         finally:
             self.freed()

@@ -20,5 +20,13 @@ def getfund():
     return const.OK
 
 
+@app.route('/fundvalue', methods=['GET'])
+def getfundValue():
+    task_id = request.args.get("task_id")
+    log_id = request.args.get("log_id")
+
+    print(task_id,log_id)
+    return const.OK
+
 if __name__ == '__main__':
     app.run(port=10002)

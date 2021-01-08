@@ -26,11 +26,11 @@ class Dao(object):
     def delete_many(self,filter):
         myclient[self.db_name][self.table_name].delete_many(filter)
 
-    def find(self,filter):
+    def find(self,filter={}):
         cursor = myclient[self.db_name][self.table_name].find(filter)
         return [ t for t in cursor ]
 
-    def find(self,filter,skip,limit):
+    def findPage(self,filter,skip,limit):
         cursor = myclient[self.db_name][self.table_name].find(filter).skip(skip).limit(limit)
         return [t for t in cursor]
 

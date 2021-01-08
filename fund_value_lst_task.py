@@ -6,12 +6,12 @@ import akshare as ak
 import pytz
 from dao import Dao
 
-log = log_utils.get_logger("fundValueTask")
+log = log_utils.get_logger("fundValueLstTask")
 
-class FundValueTask(Task):
+class FundValueLstTask(Task):
 
     def excute(self):
-        dao = Dao("crawler", "fundValue")
+        dao = Dao("crawler", "fundValueLst")
         fund_em_open_fund_daily_df = ak.fund_em_open_fund_daily()
         fund_em_open_fund_daily_df["createTime"] = pytz.timezone('Asia/Shanghai').localize(datetime.datetime.now())
 
@@ -19,8 +19,14 @@ class FundValueTask(Task):
         today = date.today()
         lastday = today.replace(day=today.day-1)
         todayKey = date.today().strftime('%Y-%m-%d')
-        lastdayKey = today.replace(day=today.day-1).strftime('%Y-%m-%d')
+        lastdayKey = lastday.strftime('%Y-%m-%d')
 
+        keys = fund_em_open_fund_daily_df.keys()
+
+        if "%s-累计净值" % todayKey not in keys:
+            msg = "%s 净值 不存在" % todayKey
+            log.info(msg)
+            return msg
 
         fund_em_open_fund_daily_df.rename(
             columns={"基金简称": "name",
@@ -49,10 +55,10 @@ class FundValueTask(Task):
         return msg
 
     def _obj(self):
-        return 'fundValueTask'
+        return 'fundValueTaskLst'
 
 
 if __name__ == '__main__':
-        task = FundValueTask('task_004')
+        task = FundValueLstTask('task_004')
 
         task.excute()
