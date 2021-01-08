@@ -8,7 +8,7 @@ class log_utils():
         logger_obj = logging.getLogger(name)  # 创建一个logger对象，它提供了应用程序可以直接使用的接口，其类型为“<class 'logging.RootLogger'>”；
         if not logger_obj.hasHandlers():
             logger_obj.setLevel(logging.DEBUG)
-            fh = logging.FileHandler("../yliu_data_akshare.log")  # 创建一个文件输出流；
+            fh = logging.FileHandler("yliu_data_akshare.log")  # 创建一个文件输出流；
             fh.setLevel(logging.DEBUG)  # 定义文件输出流的告警级别；
 
             ch = logging.StreamHandler()  # 创建一个屏幕输出流；
