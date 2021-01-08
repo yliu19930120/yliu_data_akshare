@@ -22,14 +22,14 @@ def getfund():
 
 
 @app.route('/fundvaluehis', methods=['GET'])
-def getfundValue():
+def getfundValueHis():
     fund_task = FundValueHisTask(request.args.get("task_id"),request.args.get("log_id"))
     _thread.start_new_thread(fund_task.run, ())
     return const.OK
 
 
 @app.route('/fundvaluelst', methods=['GET'])
-def getfundValue():
+def getfundValueLst():
     fund_task = FundValueLstTask(request.args.get("task_id"),request.args.get("log_id"))
     _thread.start_new_thread(fund_task.run, ())
     return const.OK
