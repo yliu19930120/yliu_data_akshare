@@ -54,9 +54,6 @@ class FundValueLstTask(Task):
         log.info(msg)
         return msg
 
-    def _obj(self):
-        return 'fundValueTaskLst'
-
 
 if __name__ == '__main__':
         task = FundValueLstTask('task_004')

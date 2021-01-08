@@ -6,6 +6,8 @@ import const
 import _thread
 
 from fund_task import FundTask
+from fund_value_his_task import FundValueHisTask
+from fund_value_lst_task import FundValueLstTask
 from log_utils import log_utils
 
 
@@ -14,19 +16,26 @@ log = log_utils.get_logger("app")
 
 @app.route('/fund', methods=['GET'])
 def getfund():
-    task_id = request.args.get("task_id")
-    fund_task = FundTask(task_id)
+    fund_task = FundTask(request.args.get("task_id"),request.args.get("log_id"))
     _thread.start_new_thread(fund_task.run, ())
     return const.OK
 
 
-@app.route('/fundvalue', methods=['GET'])
+@app.route('/fundvaluehis', methods=['GET'])
 def getfundValue():
-    task_id = request.args.get("task_id")
-    log_id = request.args.get("log_id")
-
-    print(task_id,log_id)
+    fund_task = FundValueHisTask(request.args.get("task_id"),request.args.get("log_id"))
+    _thread.start_new_thread(fund_task.run, ())
     return const.OK
+
+
+@app.route('/fundvaluelst', methods=['GET'])
+def getfundValue():
+    fund_task = FundValueLstTask(request.args.get("task_id"),request.args.get("log_id"))
+    _thread.start_new_thread(fund_task.run, ())
+    return const.OK
+
+
+
 
 if __name__ == '__main__':
     app.run(port=10002)

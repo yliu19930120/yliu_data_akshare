@@ -24,9 +24,6 @@ class FundTask(Task):
         log.info(msg)
         return msg
 
-    def _obj(self):
-        return 'fundTask'
-
 if __name__ == '__main__':
     task = FundTask("task_04")
 

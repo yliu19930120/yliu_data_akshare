@@ -11,7 +11,7 @@ class FundValueHisTask(Task):
 
     def excute(self):
 
-        fund_dao = Dao("crawler", "fund")
+        fund_dao = Dao("crawler", "fundValueHis")
         funds = fund_dao.find()
         count = 0
         for fund in funds:
@@ -60,9 +60,6 @@ class FundValueHisTask(Task):
         dffull = fund_em_info_df.merge(cumu_fund_em_info_df,how='outer',on='净值日期')
 
         return dffull
-
-    def _obj(self):
-        return 'fundValueHisTask'
 
 
 if __name__ == '__main__':
