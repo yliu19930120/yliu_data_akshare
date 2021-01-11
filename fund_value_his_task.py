@@ -58,9 +58,8 @@ class FundValueHisTask(Task):
     def get_one(self,code):
         fund_em_info_df = ak.fund_em_open_fund_info(fund=code, indicator="单位净值走势")
         cumu_fund_em_info_df = ak.fund_em_open_fund_info(fund=code, indicator="累计净值走势")
-
+        print(fund_em_info_df)
         dffull = fund_em_info_df.merge(cumu_fund_em_info_df,how='outer',on='净值日期')
-
         return dffull
 
 if __name__ == '__main__':
