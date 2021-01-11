@@ -4,6 +4,7 @@ from task import Task
 import akshare as ak
 import pytz
 from dao import Dao
+import traceback
 
 log = log_utils.get_logger("fundValueHisTask")
 
@@ -22,6 +23,7 @@ class FundValueHisTask(Task):
                 fund_em_info_df = self.get_one(code)
             except Exception as e:
                 log.info("基金 %s 爬取失败 %s ", code,e)
+                traceback.print_exc()
                 continue
 
             fund_em_info_df["createTime"] = pytz.timezone('Asia/Shanghai').localize(datetime.datetime.now())
@@ -61,4 +63,7 @@ class FundValueHisTask(Task):
 
         return dffull
 
-
+if __name__ == '__main__':
+    code = '000179'
+    task = FundValueHisTask('123','233')
+    task.get_one(code)
