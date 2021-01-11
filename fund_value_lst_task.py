@@ -55,7 +55,3 @@ class FundValueLstTask(Task):
         return msg
 
 
-if __name__ == '__main__':
-        task = FundValueLstTask('task_004')
-
-        task.excute()

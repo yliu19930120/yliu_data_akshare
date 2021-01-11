@@ -20,9 +20,13 @@ class Task(object):
         return '成功'
 
     def run(self):
+        if self.task_id == None or self.log_id == None:
+            msg = "task_id或者log_id 为空"
+            log.info(msg)
+            self.callback(fail, msg)
+            return
         try:
             msg = self.excute()
-            log.info("成功")
             self.callback(succ,msg)
         except Exception as e:
             log.info("失败 %s ",e)

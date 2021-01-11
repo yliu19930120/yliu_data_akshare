@@ -24,9 +24,6 @@ class FundTask(Task):
         log.info(msg)
         return msg
 
-if __name__ == '__main__':
-    task = FundTask("task_04")
 
-    task.failed('异常')
 
 

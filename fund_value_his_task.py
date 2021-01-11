@@ -11,7 +11,7 @@ class FundValueHisTask(Task):
 
     def excute(self):
 
-        fund_dao = Dao("crawler", "fundValueHis")
+        fund_dao = Dao("crawler", "fund")
         funds = fund_dao.find()
         count = 0
         for fund in funds:
@@ -62,7 +62,3 @@ class FundValueHisTask(Task):
         return dffull
 
 
-if __name__ == '__main__':
-    task = FundValueHisTask('task_05')
-    # task.get_one("000002")
-    task.excute()

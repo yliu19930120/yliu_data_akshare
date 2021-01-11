@@ -23,7 +23,7 @@ class Dao(object):
     def delete_one(self,filter):
         myclient[self.db_name][self.table_name].delete_one(filter)
 
-    def delete_many(self,filter):
+    def delete_many(self,filter={}):
         myclient[self.db_name][self.table_name].delete_many(filter)
 
     def find(self,filter={}):
@@ -37,13 +37,5 @@ class Dao(object):
     def findOne(self):
         return myclient[self.db_name][self.table_name].find_one()
 
-if __name__ == '__main__':
-    fund_em_fund_name_df = ak.fund_em_fund_name()
-    dao = Dao("crawler", "fund")
-    dao.delete_many({})
-    fund_em_fund_name_df["createTime"] = datetime.now()
-    fund_em_fund_name_df.rename(columns={"基金简称": "name", "基金类型": "fundType", "拼音全称": "fullPinyin", "基金代码": "code", "拼音缩写": "pinyin"}, inplace=True)
-    records = fund_em_fund_name_df.to_dict(orient='records')
 
-    dao.insert_many(records)
 

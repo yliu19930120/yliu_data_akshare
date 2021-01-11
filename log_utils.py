@@ -24,11 +24,4 @@ class log_utils():
 
         return logger_obj
 
-if __name__ == '__main__':
-    logger_obj = log_utils.get_logger()
-    logger_obj.info("asd")
-    logger_obj.info("info")
-    logger_obj.error("error")
-    logger_obj.warning("warning")
-    logger_obj.debug("debug")
 
