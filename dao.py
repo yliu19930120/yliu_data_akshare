@@ -6,7 +6,7 @@ import pymongo
 
 
 
-myclient = pymongo.MongoClient('mongodb://mongo_server:27017/',tz_aware=True, tzinfo=pytz.timezone('Asia/Shanghai'))
+myclient = pymongo.MongoClient('mongodb://admin:fasfmlmk23423@mongo_server:27017/crawler',tz_aware=True, tzinfo=pytz.timezone('Asia/Shanghai'))
 
 class Dao(object):
 
